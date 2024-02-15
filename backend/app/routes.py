@@ -8,9 +8,6 @@ def get_navigation():
     response = request_manager.get_soup('')
     navigation = parse_navigation(response)
 
-    if not isinstance(navigation, list):
-        return navigation.prettify()
-
     return jsonify(navigation)
 
 @app.route('/parse-authors')
@@ -18,9 +15,6 @@ def get_authors():
     request_manager = RequestManager()
     response = request_manager.get_soup('')
     authors = authors_parser(response)
-
-    if not isinstance(authors, list):
-        return authors.prettify()
 
     return jsonify(authors)
 
@@ -32,9 +26,6 @@ def get_home_page():
 
     home = home_page_parser(response)
 
-    if not isinstance(home, list):
-        return home.prettify()
-
     return jsonify(home)
 
 @app.route("/category/<category_name>")
@@ -43,9 +34,6 @@ def get_category(category_name):
     response = request_manager.get_soup("category/" + category_name)
 
     category = category_parser(response)
-
-    if not isinstance(category, dict):
-        return category.prettify()
     
     return jsonify(category)
 
