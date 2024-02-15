@@ -13,7 +13,6 @@ def get_navigation():
 
     return jsonify(navigation)
 
-
 @app.route('/parse-authors')
 def get_authors():
     request_manager = RequestManager()
