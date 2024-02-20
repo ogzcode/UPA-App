@@ -1,6 +1,6 @@
-from flask import jsonify
+from flask import jsonify, request
 from app import app
-from app.parser import RequestManager, parse_navigation, authors_parser, home_page_parser, category_parser, parse_pagination
+from app.parser import RequestManager, parse_navigation, authors_parser, home_page_parser, category_parser, parse_pagination, parse_post
 
 
 @app.route('/parse-navigation')
@@ -45,6 +45,17 @@ def get_category(category_name, page_number=None):
     category = category_parser(response)
 
     return jsonify(pagination=pagination, category=category)
+
+@app.route("/post")
+def get_post():
+    link = request.args.get("link")
+
+    request_manager = RequestManager()
+    response = request_manager.get_soup(link)
+
+    post = parse_post(response)
+
+    return jsonify(post)
 
 
 @app.route("/")

@@ -16,7 +16,7 @@ def category_parser(response):
         posts_list.append({
             "image": image,
             "title": title,
-            "link": link,
+            "link": link.split("org/")[1],
             "content": content,
             "create_date": create_date
         })
