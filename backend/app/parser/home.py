@@ -16,7 +16,7 @@ def home_page_parser(response):
         posts.append({
             "image": img_href,
             "header": header,
-            "link": link,
+            "link": link.split("org/")[1],
             "content": content
         })
 

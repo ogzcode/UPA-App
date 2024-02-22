@@ -7,7 +7,10 @@ def parse_content(response):
         if child.name == "p" and isinstance(child, Tag):
             style_value = child.get("style")
 
-            if style_value and ("text-align: justify" in style_value or "text-align: right" in style_value):
+            if style_value  and "text-align: right" in style_value:
+                content.append(parse_p_tag(child))
+                break
+            else:
                 content.append(parse_p_tag(child))
         elif child.name == "blockquote":
             content.append({
@@ -29,6 +32,14 @@ def parse_content(response):
 
 
 def parse_p_tag(response):
+    previous_sibling = response.find_previous_sibling()
+
+    if previous_sibling is not None and previous_sibling.find("img") is not None:
+        return {
+            "type": "image-caption",
+            "content": response.find("em").get_text()
+        }
+
     if response.find("img") is not None:
         return {
             "type": "image",
