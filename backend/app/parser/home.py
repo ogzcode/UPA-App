@@ -11,7 +11,7 @@ def home_page_parser(response):
 
         header = caption.find("h1").find("a").text
         link = caption.find("h1").find("a")["href"]
-        content = caption.find("p").text
+        content = caption.find("p").text.replace("»", "").strip()
 
         posts.append({
             "image": img_href,
