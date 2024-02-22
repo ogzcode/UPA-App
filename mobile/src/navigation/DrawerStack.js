@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import Home from "../views/Home";
 import About from "../views/About";
 import Category from "../views/Category";
-import Post from "../views/Post";
+import Post from "../views/post/Post";
 
 import HouseIcon from "../assets/icons/HouseIcon";
 import CategoryIcon from "../assets/icons/CategoryIcon";
@@ -38,7 +38,7 @@ export default function DrawerStack() {
             drawerInactiveTintColor: slate[500],
             headerTitleStyle: {
                 fontFamily: "Roboto-Medium",
-                fontSize: size["6"],
+                fontSize: size["5"],
                 color: slate[800]
             },
             headerStyle: {
@@ -65,7 +65,7 @@ export default function DrawerStack() {
                 drawerLabelStyle: styles.drawerLabel
             }} />
             <Drawer.Screen
-                name="Post"
+                name="Geri Dön"
                 component={Post}
                 options={{
                     drawerLabel: () => null,
