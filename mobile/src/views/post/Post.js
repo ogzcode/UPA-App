@@ -30,7 +30,14 @@ const styles = StyleSheet.create({
         color: slate["800"],
         fontSize: typography["fontSizes"]["2xl"],
         fontFamily: "Roboto-Bold",
-        marginBottom: size[4],
+        marginBottom: size[2],
+    },
+    subtitle: {
+        color: slate["700"],
+        fontSize: typography["fontSizes"]["xl"],
+        fontFamily: "Roboto-Bold",
+        marginBottom: size[2],
+        lineHeight: typography["lineHeights"]["3xl"],
     },
     paragraph: {
         color: slate["700"],
@@ -71,11 +78,14 @@ const parseContent = (content) => {
     if (content.type === "header") {
         return <Text style={styles.header}>{content.content}</Text>
     }
+    else if (content.type === "subtitle") {
+        return <Text style={styles.subtitle}>{content.content}</Text>
+    }
     else if (content.type === "paragraph") {
         return <Text style={styles.paragraph}>{content.content}</Text>
     }
     else if (content.type === "image") {
-        return <Image source={{ uri: content.content }} style={styles.thumbImage} />
+        return <Image source={{ uri: content.content }} style={styles.thumbImage} resizeMode='contain' />
     }
     else if (content.type === "link") {
         return (
@@ -121,6 +131,11 @@ export default function Post() {
                 console.error(error);
                 setLoading(false);
             });
+
+            return () => {
+                setPost({});
+                setLoading(true);
+            }
     }, [link]);
     return (
         <ScrollView style={styles.container}>
