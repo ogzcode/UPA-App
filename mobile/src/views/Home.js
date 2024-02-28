@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { getTodayDate } from '../utils/util';
 import { getHome } from '../services/request';
+import PostFooter from './components/PostFooter';
 
 import { slate } from "../assets/style/color";
 import { size } from "../assets/style/size";
@@ -42,23 +43,6 @@ const styles = StyleSheet.create({
     postBackground: {
         height: size["80"],
     },
-    postFooter: {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: size["20"],
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        borderBottomLeftRadius: border["rounded"]["lg"],
-        borderBottomRightRadius: border["rounded"]["lg"],
-        justifyContent: "center",
-    },
-    postHeader: {
-        color: "white",
-        fontSize: typography["fontSizes"]["md"],
-        fontFamily: "Roboto-SemiBold",
-        padding: size[4],
-    },
 });
 
 export default function Home() {
@@ -74,7 +58,7 @@ export default function Home() {
     }, []);
 
     const handleNavigateToPostPage = (link) => {
-        navigation.navigate("Geri Dön", { link });
+        navigation.navigate("Geri Dön", { link, back: "Anasayfa" });
     }
 
     return (
@@ -89,11 +73,7 @@ export default function Home() {
                 renderItem={({ item }) => (
                     <View style={styles.postBox}>
                         <ImageBackground src={item.image} style={styles.postBackground} imageStyle={{ borderRadius: border["rounded"]["lg"] }} />
-                        <View style={styles.postFooter}>
-                            <Pressable onPress={() => handleNavigateToPostPage(item.link)}>
-                                <Text style={styles.postHeader}>{item.header.substring(0,64)}</Text>
-                            </Pressable>
-                        </View>
+                        <PostFooter title={item.header} onNavigatePostPage={() => handleNavigateToPostPage(item.link)} />
                     </View>
                 )}
             />
