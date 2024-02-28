@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
-import { getNavigation } from '../services/request';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { slate, sky } from "../assets/style/color";
+import { selectCategory } from '../store/slice/CategorySlice';
+import { getCategories } from '../store/slice/CategorySlice';
+
+import { sky } from "../assets/style/color";
 import { border } from "../assets/style/border";
 import { size } from "../assets/style/size";
 import { typography } from "../assets/style/typography";
@@ -68,7 +72,14 @@ const styles = StyleSheet.create({
 });
 
 const NavItem = ({ item, index }) => {
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     if (item.url === "") return null;
+
+    const handleClicked = (category) => {
+        dispatch(selectCategory(category));
+        navigation.navigate("Postlar");
+    }
 
     return (
         <View style={[styles.contentContainer, {
@@ -76,7 +87,9 @@ const NavItem = ({ item, index }) => {
             marginBottom: size[6],
         }]}>
             <View style={styles.bottom}>
-                <Text style={styles.title}>{item.title}</Text>
+                <Pressable onPress={() => handleClicked(item.url)}>
+                    <Text style={styles.title}>{item.title}</Text>
+                </Pressable>
             </View>
             <View style={styles.thumbBox}>
                 <Image
@@ -89,18 +102,13 @@ const NavItem = ({ item, index }) => {
 }
 
 export default function Category() {
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { categories, loading } = useSelector((state) => state.category);
 
     useEffect(() => {
-        getNavigation()
-            .then((res) => {
-                setCategories(res.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (categories.length === 0) {
+            dispatch(getCategories());
+        }
     }, []);
 
     return (
