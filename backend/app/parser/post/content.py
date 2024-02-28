@@ -39,7 +39,8 @@ def parse_content(response):
 def parse_p_tag(response):
     previous_sibling = response.find_previous_sibling()
 
-    if previous_sibling is not None and previous_sibling.find("img") is not None:
+    # Eğer bir önceki kardeşi bir resim ise ve bu paragrafın içinde em etiketi varsa bu resmin alt başlığıdır.
+    if previous_sibling is not None and previous_sibling.find("img") is not None and response.find("em") is not None:
         return {
             "type": "image-caption",
             "content": clear_text(response.find("em").get_text()),
@@ -50,12 +51,8 @@ def parse_p_tag(response):
             "type": "image",
             "content": response.find("img")["src"]
         }
-    elif response.find("a") is not None and not response.find("a")["href"].startswith("#"):
-        return {
-            "type": "link",
-            "content": response.find("a")["href"]
-        }
     elif response.contents[0].name == "strong":
+        # Eğer paragrafın içinde strong etiketi varsa bu bir alt başlıktır.
         inner_text = response.get_text().replace(response.find("strong").get_text(), "")
         if inner_text.strip() != "":
             return [
