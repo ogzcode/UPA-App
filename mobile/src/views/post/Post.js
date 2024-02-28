@@ -74,22 +74,23 @@ const styles = StyleSheet.create({
     }
 });
 
-const parseContent = (content) => {
+const parseContent = (content, index) => {
     if (content.type === "header") {
-        return <Text style={styles.header}>{content.content}</Text>
+        return <Text key={index} style={styles.header}>{content.content}</Text>
     }
     else if (content.type === "subtitle") {
-        return <Text style={styles.subtitle}>{content.content}</Text>
+        return <Text key={index} style={styles.subtitle}>{content.content}</Text>
     }
     else if (content.type === "paragraph") {
-        return <Text style={styles.paragraph}>{content.content}</Text>
+        return <Text key={index} style={styles.paragraph}>{content.content}</Text>
     }
     else if (content.type === "image") {
-        return <Image source={{ uri: content.content }} style={styles.thumbImage} resizeMode='contain' />
+        return <Image key={index} source={{ uri: content.content }} style={styles.thumbImage} resizeMode='contain' />
     }
     else if (content.type === "link") {
         return (
             <Text
+                key={index}
                 style={styles.link}
                 onPress={() => Linking.openURL(content.content)}
             >
@@ -98,7 +99,7 @@ const parseContent = (content) => {
         )
     }
     else if (content.type === "list") {
-        return <View style={styles.list}>
+        return <View key={index} style={styles.list}>
             {
                 content.content.map((item, index) => {
                     return <Text style={styles.listItem} key={index}> - {item}</Text>
@@ -107,10 +108,10 @@ const parseContent = (content) => {
         </View>
     }
     else if (content.type === "blockquote") {
-        return <Text style={styles.paragraph}>{content.content}</Text>
+        return <Text key={index} style={styles.paragraph}>{content.content}</Text>
     }
     else if (content.type === "image-caption") {
-        return <Text style={styles.imageCaption}>{content.content}</Text>  
+        return <Text key={index} style={styles.imageCaption}>{content.content}</Text>
     }
 }
 
@@ -132,23 +133,24 @@ export default function Post() {
                 setLoading(false);
             });
 
-            return () => {
-                setPost({});
-                setLoading(true);
-            }
+        return () => {
+            setPost({});
+            setLoading(true);
+        }
     }, [link]);
     return (
         <ScrollView style={styles.container}>
+            {loading && <ActivityIndicator size="large" color={sky["800"]} style={{ marginTop: size[6] }} />}
             {
-                loading ? <ActivityIndicator color={slate[500]} size={size[8]} /> : (
+                !loading && post.content && (
                     <View>
-                        <Header heading={post.header.heading} date={post.header.date} readingCount={post.header.reading_count} />
+                        <Header heading={post?.header?.heading} date={post?.header?.date} readingCount={post?.header?.reading_count} />
                         <View style={styles.thumbBox}>
-                            <Image source={{ uri: post.thumb }} style={styles.thumbImage} />
+                            <Image source={{ uri: post?.thumb }} style={styles.thumbImage} />
                         </View>
                         <View style={styles.contentContainer}>
                             {
-                                post.content.map((item, index) => parseContent(item))
+                                post?.content?.map((item, index) => parseContent(item, index))
                             }
                         </View>
                     </View>
