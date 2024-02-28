@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 
 export const CustomHeaderLeft = (props) => {
     if (props.route.name === 'Geri Dön') {
-        return <TouchableOpacity onPress={() => props.navigation.goBack()} style={styles.headerLeft}>
+        return <TouchableOpacity onPress={() => props.navigation.navigate(props.route.params.back)} style={styles.headerLeft}>
             <ArrowLeft size={size[8]} color={slate[800]}  />
         </TouchableOpacity>
     }

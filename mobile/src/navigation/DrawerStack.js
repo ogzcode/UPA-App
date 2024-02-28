@@ -4,6 +4,7 @@ import Home from "../views/Home";
 import About from "../views/About";
 import Category from "../views/Category";
 import Post from "../views/post/Post";
+import PostList from "../views/PostList";
 
 import HouseIcon from "../assets/icons/HouseIcon";
 import CategoryIcon from "../assets/icons/CategoryIcon";
@@ -67,6 +68,14 @@ export default function DrawerStack() {
             <Drawer.Screen
                 name="Geri Dön"
                 component={Post}
+                options={{
+                    drawerLabel: () => null,
+                    drawerItemStyle: { display: "none" }
+                }}
+            />
+            <Drawer.Screen
+                name="Postlar"
+                component={PostList}
                 options={{
                     drawerLabel: () => null,
                     drawerItemStyle: { display: "none" }

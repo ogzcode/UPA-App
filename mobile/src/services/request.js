@@ -18,11 +18,11 @@ export const getHome = async () => {
 }
 
 export const getByCategory = async (category) => {
-    return await axios.get(`${BASE_URL}/parse-category/${category}`);
+    return await axios.get(`${BASE_URL}/category/${category}`);
 }
 
-export const getByCategoryAndPage = async (category, page) => {
-    return await axios.get(`${BASE_URL}/parse-category/${category}/page/${page}`);
+export const getByCategoryAndPage = async (categoryPage) => {
+    return await axios.get(`${BASE_URL}/category/${categoryPage}`);
 }
 
 export const getPost = async (link) => {
