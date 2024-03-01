@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, FlatList, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, FlatList, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { getTodayDate } from '../utils/util';
 import { getHome } from '../services/request';
 import PostFooter from './components/PostFooter';
 
-import { slate } from "../assets/style/color";
+
+import { sky, slate } from "../assets/style/color";
 import { size } from "../assets/style/size";
 import { typography } from "../assets/style/typography";
 import { border } from "../assets/style/border";
@@ -48,9 +49,11 @@ const styles = StyleSheet.create({
 export default function Home() {
     const navigation = useNavigation();
     const [postList, setPostList] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getHome().then((res) => {
+            setLoading(false);
             setPostList(res.data);
         }).catch((err) => {
             console.log(err);
@@ -67,6 +70,7 @@ export default function Home() {
                 <Text style={styles.headerText}>Son Yazılar</Text>
                 <Text style={styles.dateText}>{getTodayDate()}</Text>
             </View>
+            {loading && <ActivityIndicator size="large" color={sky[800]} />}
             <FlatList
                 style={styles.postList}
                 data={postList}

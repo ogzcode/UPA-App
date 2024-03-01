@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "white",
         flex: 1,
-        padding: size[6],
+        padding: size[4],
     },
     contentContainer: {
         flex: 1,
@@ -55,6 +55,8 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         backgroundColor: "rgba(0, 0, 0, 0.4)",
+        borderBottomLeftRadius: border["rounded"]["lg"],
+        borderBottomRightRadius: border["rounded"]["lg"],
         padding: size[2],
         zIndex: 1,
     },
@@ -83,7 +85,7 @@ const NavItem = ({ item, index }) => {
 
     return (
         <View style={[styles.contentContainer, {
-            marginRight: index % 2 === 0 ? size[12] : 0,
+            marginRight: index % 2 === 0 ? size[6] : 0,
             marginBottom: size[6],
         }]}>
             <View style={styles.bottom}>
