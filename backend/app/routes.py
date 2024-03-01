@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from app import app
-from app.parser import RequestManager, parse_navigation, authors_parser, home_page_parser, category_parser, parse_pagination, parse_post
+from app.parser import RequestManager, parse_navigation, authors_parser, home_page_parser, category_parser, parse_pagination, parse_post, about_parser
 
 
 @app.route('/parse-navigation')
@@ -57,6 +57,14 @@ def get_post():
 
     return jsonify(post)
 
+@app.route("/about")
+def get_about():
+    request_manager = RequestManager()
+    response = request_manager.get_soup('hakkimizda')
+
+    about = about_parser(response)
+
+    return jsonify(about)
 
 @app.route("/")
 def index():
