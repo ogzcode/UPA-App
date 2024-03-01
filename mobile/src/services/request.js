@@ -32,3 +32,7 @@ export const getPost = async (link) => {
 export const getTest = async () => {
     return await axios.get(`${BASE_URL}`);
 }
+
+export const getAbout = async () => {
+    return await axios.get(`${BASE_URL}/about`);
+}

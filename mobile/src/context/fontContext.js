@@ -1,6 +1,8 @@
 import { createContext, useContext } from "react";
 import { useFonts } from 'expo-font';
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View, Image } from "react-native";
+import { sky, slate } from "../assets/style/color";
+import { size } from "../assets/style/size";
 
 const FontContext = createContext();
 
@@ -18,7 +20,12 @@ export const FontProvider = ({ children }) => {
     });
 
     if (!loaded) {
-        return <ActivityIndicator size="large" color="#0000ff" />
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: size[8] }}>
+                <Image source={require("../assets/image/logo.png")} width={size[48]} />
+                <ActivityIndicator size="large" color={sky[800]} />
+            </View>
+        )
     }
 
     return (
