@@ -156,7 +156,7 @@ export default function Pagination({ paginate, onPaginatePage }) {
 
         if (item.link === "#") {
             return (
-                <Pressable key={index} onPress={() => setModalVisible(true)} style={[styles.paginateBtn, styles.activeBtn]}>
+                <Pressable key={index} android_ripple={{ color: "white", borderless: false }} onPress={() => setModalVisible(true)} style={[styles.paginateBtn, styles.activeBtn]}>
                     {getPaginateIcon(item.page, true)}
                 </Pressable>
             )
@@ -183,7 +183,7 @@ export default function Pagination({ paginate, onPaginatePage }) {
                 onRequestClose={() => {
                     setModalVisible(!modalVisible);
                 }}
-                
+
             >
                 <View style={styles.centeredView}>
                     <View style={styles.inner}>
@@ -194,7 +194,7 @@ export default function Pagination({ paginate, onPaginatePage }) {
                         <ScrollView contentContainerStyle={styles.modalView} horizontal={true}>
                             {
                                 Array.from({ length: parseInt(lastPage[2]) }, (v, k) => k + 1).map((page, index) => (
-                                    <TouchableOpacity  key={index} style={[styles.paginateBtn, page === activePage && styles.activeBtn]} onPress={() => onPaginatePage(`${lastPage[0]}/page/${page}`)}>
+                                    <TouchableOpacity key={index} style={[styles.paginateBtn, page === activePage && styles.activeBtn]} onPress={() => onPaginatePage(`${lastPage[0]}/page/${page}`)}>
                                         <Text style={[styles.modelPageText, {
                                             color: page === activePage ? "white" : slate[600]
                                         }]}>{page}</Text>
