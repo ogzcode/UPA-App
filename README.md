@@ -7,3 +7,7 @@ Flask ve Beautifulsoup4 ile verileri ayrıştırıp JSON formatına dönüştür
 
 ## Kurulum ve Kullanım
 Projenim kurulum ve kullanım adımlarını `./mobile` ve `./backend` klasörlerindeki README dosyalarında bulabilirsiniz.
+
+### Uygulama Tanıtımı
+https://github.com/ogzcode/UPA-App/assets/58819819/3184e2a5-a60b-4bf0-9c40-d6e03661df1d
+
